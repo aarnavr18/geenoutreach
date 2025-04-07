@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy Efficiency Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Energy Efficiency Calculator</h1>
+    
+    <div class="quote">
+      "The greatest threat to our planet is the belief that someone else will save it." - Robert Swan
+    </div>
+
+    <form id="energyForm">
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <input type="text" id="zipCode" name="zipCode" required placeholder="Enter your zip code">
+      </div>
+      
+      <div class="form-group">
+        <label for="ownerStatus">Property Ownership</label>
+        <select id="ownerStatus" name="ownerStatus" required>
+          <option value="">Select ownership status</option>
+          <option value="homeowner">Homeowner</option>
+          <option value="renter">Renter</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="householdIncome">Annual Household Income ($)</label>
+        <input type="number" id="householdIncome" name="householdIncome" required placeholder="Enter your annual income">
+      </div>
+      
+      <div class="form-group">
+        <label for="householdSize">Household Size</label>
+        <input type="number" id="householdSize" name="householdSize" required placeholder="Number of people in household">
+      </div>
+      
+      <div class="form-group">
+        <label for="taxFiling">Tax Filing Status</label>
+        <select id="taxFiling" name="taxFiling" required>
+          <option value="">Select tax filing status</option>
+          <option value="single">Single</option>
+          <option value="joint">Married Filing Jointly</option>
+        </select>
+      </div>
+
+      <button type="submit">Calculate Energy Savings</button>
+    </form>
+
+    <div class="quote">
+      "We do not inherit the earth from our ancestors, we borrow it from our children." - Native American Proverb
+    </div>
+
+    <div id="results">
+      <div class="loading">Calculating your energy savings...</div>
+      <div class="error" style="display: none;"></div>
+      
+      <div id="calculatorResults" class="result-section">
+        <h3>Eligibility Results</h3>
+        <div class="result-content"></div>
+      </div>
+      
+      <div id="utilitiesResults" class="result-section">
+        <h3>Available Utilities</h3>
+        <div class="result-content"></div>
+      </div>
+      
+      <div id="incentivesResults" class="result-section">
+        <h3>Available Incentives</h3>
+        <div class="result-content"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Making energy efficiency accessible for everyone</p>
+      <p>Powered by Rewiring America API</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> 
