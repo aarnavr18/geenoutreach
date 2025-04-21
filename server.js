@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
+const fs = require('fs').promises;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -199,6 +201,72 @@ app.get('/api/incentives', async (req, res) => {
             message: error.message
         });
     }
+});
+
+// Events API endpoint
+app.get('/api/events', async (req, res) => {
+  try {
+    const eventsPath = path.join(__dirname, 'public/data/events.json');
+    const eventsData = await fs.readFile(eventsPath, 'utf8');
+    const events = JSON.parse(eventsData);
+    
+    // Filter out past events
+    const currentDate = new Date();
+    const upcomingEvents = events.events.filter(event => new Date(event.date) >= currentDate);
+    
+    // Sort by date
+    upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    console.log(`Events API: Found ${upcomingEvents.length} upcoming events`);
+    
+    res.json({ events: upcomingEvents });
+  } catch (error) {
+    console.error('Error fetching events:', error.message);
+    res.status(500).json({ 
+      error: 'Failed to fetch events',
+      message: error.message
+    });
+  }
+});
+
+// Save events API endpoint
+app.post('/api/events', express.json(), async (req, res) => {
+  try {
+    const events = req.body;
+    
+    // Validate request
+    if (!events || !Array.isArray(events.events)) {
+      return res.status(400).json({ error: 'Invalid events data format' });
+    }
+    
+    const eventsPath = path.join(__dirname, 'public/data/events.json');
+    
+    // Format events data
+    const formattedEvents = {
+      events: events.events.map(event => ({
+        id: event.id,
+        date: event.date,
+        displayDate: event.displayDate,
+        title: event.title,
+        description: event.description,
+        location: event.location,
+        link: event.link || '#'
+      }))
+    };
+    
+    // Save to file
+    await fs.writeFile(eventsPath, JSON.stringify(formattedEvents, null, 2), 'utf8');
+    
+    console.log(`Events API: Saved ${formattedEvents.events.length} events`);
+    
+    res.json({ success: true, message: 'Events saved successfully' });
+  } catch (error) {
+    console.error('Error saving events:', error.message);
+    res.status(500).json({ 
+      error: 'Failed to save events',
+      message: error.message
+    });
+  }
 });
 
 // Simple test endpoint

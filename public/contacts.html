@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fair Lawn Sustainability Contacts</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sustainability.css">
+  <link rel="stylesheet" href="contacts.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Fair Lawn Sustainability Contacts</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Energy Calculator</a></li>
+          <li><a href="sustainability.html">Sustainability</a></li>
+          <li><a href="contacts.html" class="active">Contacts</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="page-intro">
+      <p>Connect with the Fair Lawn Green Team and other sustainability leaders in our community. Reach out with questions, suggestions, or to learn how you can get involved in local sustainability initiatives.</p>
+    </div>
+
+    <section class="contact-section">
+      <h2>Green Team Leadership</h2>
+      
+      <div class="contacts-grid">
+        <div class="contact-card">
+          <div class="contact-photo placeholder-photo">
+            <span>Photo</span>
+          </div>
+          <div class="contact-info">
+            <h3>Person 1</h3>
+            <p class="contact-title">Green Team Chair</p>
+            <p><strong>Email:</strong> person1@fairlawn.org</p>
+            <p><strong>Phone:</strong> (201) 555-0001</p>
+            <p class="contact-bio">Leads the Green Team's efforts and coordinates with borough officials to implement sustainability initiatives throughout Fair Lawn.</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-photo placeholder-photo">
+            <span>Photo</span>
+          </div>
+          <div class="contact-info">
+            <h3>Person 2</h3>
+            <p class="contact-title">Green Team Vice Chair</p>
+            <p><strong>Email:</strong> person2@fairlawn.org</p>
+            <p><strong>Phone:</strong> (201) 555-0002</p>
+            <p class="contact-bio">Focuses on community outreach and educational programs to promote sustainability practices among Fair Lawn residents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2>Sustainability Coordinators</h2>
+      
+      <div class="contacts-grid">
+        <div class="contact-card">
+          <div class="contact-photo placeholder-photo">
+            <span>Photo</span>
+          </div>
+          <div class="contact-info">
+            <h3>Person 3</h3>
+            <p class="contact-title">Energy Programs Coordinator</p>
+            <p><strong>Email:</strong> person3@fairlawn.org</p>
+            <p><strong>Phone:</strong> (201) 555-0003</p>
+            <p class="contact-bio">Oversees energy efficiency programs and initiatives, including the Fair Lawn Energy Savings Calculator project.</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-photo placeholder-photo">
+            <span>Photo</span>
+          </div>
+          <div class="contact-info">
+            <h3>Person 4</h3>
+            <p class="contact-title">Recycling & Waste Coordinator</p>
+            <p><strong>Email:</strong> person4@fairlawn.org</p>
+            <p><strong>Phone:</strong> (201) 555-0004</p>
+            <p class="contact-bio">Manages recycling initiatives and waste reduction programs, working to improve Fair Lawn's sustainability practices.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <h2>Contact the Green Team</h2>
+      <form id="contactForm" class="contact-form">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="volunteer" name="volunteer">
+          <label for="volunteer">I'm interested in volunteering with the Green Team</label>
+        </div>
+        
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </section>
+
+    <div class="borough-info">
+      <h2>Borough Contact Information</h2>
+      <p><strong>Fair Lawn Borough Hall</strong><br>
+      8-01 Fair Lawn Avenue<br>
+      Fair Lawn, NJ 07410</p>
+      <p><strong>Phone:</strong> (201) 796-1700</p>
+      <p><strong>Website:</strong> <a href="https://fairlawnnj.govoffice.com/" target="_blank">fairlawnnj.govoffice.com</a></p>
+    </div>
+
+    <footer>
+      <p>Making energy efficiency accessible for Fair Lawn residents</p>
+      <p>Powered by Rewiring America API</p>
+      <p>© 2024 Fair Lawn Energy Savings Calculator</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      alert('Thank you for your message! The Green Team will respond to your inquiry soon.');
+      this.reset();
+    });
+  </script>
+</body>
+</html> 

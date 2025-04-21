@@ -671,4 +671,69 @@ footer {
     color: #2e7d32;
     margin: 0;
     font-size: 1.5em;
+}
+
+/* Sustainability CTA */
+.sustainability-cta {
+  background-color: #e8f5e9;
+  padding: 30px;
+  border-radius: 10px;
+  margin: 30px 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right, #e8f5e9, #c8e6c9);
+}
+
+.sustainability-cta h2 {
+  color: #2e7d32;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+.sustainability-cta p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  color: #1b5e20;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sustainability-cta .btn-primary {
+  display: inline-block;
+  background-color: #2e7d32;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  font-size: 1.1em;
+}
+
+.sustainability-cta .btn-primary:hover {
+  background-color: #1b5e20;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for Sustainability CTA */
+@media (max-width: 768px) {
+  .sustainability-cta {
+    padding: 20px;
+  }
+  
+  .sustainability-cta h2 {
+    font-size: 1.5em;
+  }
+  
+  .sustainability-cta p {
+    font-size: 1em;
+  }
+  
+  .sustainability-cta .btn-primary {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
 } 
