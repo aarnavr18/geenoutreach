@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const incentivesResults = document.getElementById('incentivesResults').querySelector('.result-content');
   
   // Constants
-  const PROXY_URL = 'http://localhost:3000';
+  const PROXY_URL = '';
   
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
