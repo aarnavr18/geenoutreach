@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Energy Efficiency Calculator</title>
+  <title>Fair Lawn Energy Savings Calculator</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Energy Efficiency Calculator</h1>
+    <h1>Fair Lawn Energy Savings Calculator</h1>
     
     <div class="quote">
       "The greatest threat to our planet is the belief that someone else will save it." - Robert Swan
     </div>
 
+    <div class="fair-lawn-intro">
+      <p>Find available energy incentives and rebates for residents of Fair Lawn, NJ. Get personalized information about tax credits, rebates, and assistance programs to help you save money while making energy-efficient upgrades to your home.</p>
+    </div>
+
     <form id="energyForm">
       <div class="form-group">
         <label for="zipCode">Zip Code</label>
-        <input type="text" id="zipCode" name="zipCode" required placeholder="Enter your zip code">
+        <input type="text" id="zipCode" name="zipCode" required value="07410" placeholder="Fair Lawn zip code">
       </div>
       
       <div class="form-group">
@@ -48,7 +52,7 @@
         </select>
       </div>
 
-      <button type="submit">Calculate Energy Savings</button>
+      <button type="submit">Calculate Fair Lawn Energy Savings</button>
     </form>
 
     <div class="quote">
@@ -65,19 +69,20 @@
       </div>
       
       <div id="utilitiesResults" class="result-section">
-        <h3>Available Utilities</h3>
+        <h3>Fair Lawn Utilities</h3>
         <div class="result-content"></div>
       </div>
       
       <div id="incentivesResults" class="result-section">
-        <h3>Available Incentives</h3>
+        <h3>Available Fair Lawn Incentives</h3>
         <div class="result-content"></div>
       </div>
     </div>
 
     <footer>
-      <p>Making energy efficiency accessible for everyone</p>
+      <p>Making energy efficiency accessible for Fair Lawn residents</p>
       <p>Powered by Rewiring America API</p>
+      <p>© 2024 Fair Lawn Energy Savings Calculator</p>
     </footer>
   </div>
   <script src="script.js"></script>

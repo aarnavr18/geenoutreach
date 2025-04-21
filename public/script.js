@@ -69,6 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     resultsDiv.appendChild(quoteDiv);
 
+    // Fair Lawn Specific Header
+    const fairLawnHeader = document.createElement('div');
+    fairLawnHeader.className = 'fair-lawn-intro';
+    fairLawnHeader.innerHTML = `
+        <h2>Fair Lawn, NJ Energy Incentives</h2>
+        <p>Based on your information, here are the energy incentives available to Fair Lawn residents. PSE&G is the main utility provider for Fair Lawn, offering additional programs to help you save on energy costs.</p>
+    `;
+    resultsDiv.appendChild(fairLawnHeader);
+
     // Eligibility Section
     const eligibilityDiv = document.createElement('div');
     eligibilityDiv.className = 'results-section';
@@ -88,9 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const utilitiesDiv = document.createElement('div');
     utilitiesDiv.className = 'results-section';
     utilitiesDiv.innerHTML = `
-        <h2>Available Utilities</h2>
-        <p><strong>Electric Utility:</strong> ${incentivesData.utilities.electric || 'None found'}</p>
-        <p><strong>Gas Utility:</strong> ${incentivesData.utilities.gas || 'None found'}</p>
+        <h2>Fair Lawn Utilities</h2>
+        <p><strong>Electric Utility:</strong> ${incentivesData.utilities.electric || 'PSE&G (Public Service Electric & Gas)'}</p>
+        <p><strong>Gas Utility:</strong> ${incentivesData.utilities.gas || 'PSE&G (Public Service Electric & Gas)'}</p>
+        <p><em>PSE&G serves most of Fair Lawn and offers additional energy efficiency programs for residents.</em></p>
     `;
     resultsDiv.appendChild(utilitiesDiv);
 
@@ -166,11 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextStepsDiv = document.createElement('div');
     nextStepsDiv.className = 'results-section next-steps';
     nextStepsDiv.innerHTML = `
-        <h2>💡 Recommended Next Steps</h2>
+        <h2>💡 Recommended Next Steps for Fair Lawn Residents</h2>
         <ol>
-            <li>Schedule a professional home energy audit to identify the most impactful improvements for your home</li>
-            <li>Contact your utility providers (${incentivesData.utilities?.electric || 'Electric'} and ${incentivesData.utilities?.gas || 'Gas'}) about additional rebate programs</li>
-            <li>Get quotes from certified contractors for your chosen projects</li>
+            <li>Schedule a professional home energy audit to identify the most impactful improvements for your Fair Lawn home</li>
+            <li>Contact PSE&G at 1-800-436-7734 to learn about utility-specific rebate programs</li>
+            <li>Consult with Fair Lawn's Building Department for any necessary permits at 201-794-5340</li>
+            <li>Get quotes from certified contractors who have experience with Fair Lawn homes</li>
             <li>Review financing options and apply for available incentives</li>
             <li>Consider bundling multiple improvements to maximize your savings and benefits</li>
         </ol>
