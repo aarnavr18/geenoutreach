@@ -11,10 +11,28 @@ const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 const BASE_URL = process.env.API_BASE_URL || 'https://api.rewiringamerica.org';
 
+// Configure axios with defaults
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 30000, // 30 second timeout
+  headers: {
+    'Authorization': `Bearer ${API_KEY}`
+  }
+});
+
 // Configure middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({ 
+    error: 'Server error', 
+    message: err.message || 'Unknown error occurred'
+  });
+});
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -42,10 +60,7 @@ app.get('/api/calculator', async (req, res) => {
     
     console.log(`Making calculator request with params: ${JSON.stringify(params, null, 2)}`);
     
-    const response = await axios.get(`${BASE_URL}/api/v1/calculator`, {
-      headers: {
-        'Authorization': `Bearer ${API_KEY}`
-      },
+    const response = await axiosInstance.get('/api/v1/calculator', {
       params: {
         zip: params.zip,
         owner_status: params.owner_status,
@@ -87,10 +102,7 @@ app.get('/api/utilities', async (req, res) => {
     
     console.log(`Making utilities request with params: ${JSON.stringify(params, null, 2)}`);
     
-    const response = await axios.get(`${BASE_URL}/api/v1/utilities`, {
-      headers: {
-        'Authorization': `Bearer ${API_KEY}`
-      },
+    const response = await axiosInstance.get('/api/v1/utilities', {
       params: {
         zip: params.zip
       }
@@ -136,9 +148,8 @@ app.get('/api/incentives', async (req, res) => {
         console.log('Incentives request params:', req.query);
 
         // First get utilities for the zip code
-        const utilitiesResponse = await axios.get(`${BASE_URL}/api/v1/utilities`, {
-            params: { zip },
-            headers: { 'Authorization': `Bearer ${API_KEY}` }
+        const utilitiesResponse = await axiosInstance.get('/api/v1/utilities', {
+            params: { zip }
         });
 
         // Extract utilities from the response - get the first utility ID from each type
@@ -162,9 +173,8 @@ app.get('/api/incentives', async (req, res) => {
 
         console.log('Making calculator request with params:', JSON.stringify(calculatorParams, null, 2));
 
-        const calculatorResponse = await axios.get(`${BASE_URL}/api/v1/calculator`, {
-            params: calculatorParams,
-            headers: { 'Authorization': `Bearer ${API_KEY}` }
+        const calculatorResponse = await axiosInstance.get('/api/v1/calculator', {
+            params: calculatorParams
         });
 
         console.log('Calculator response received');

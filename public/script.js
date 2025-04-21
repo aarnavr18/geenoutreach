@@ -33,8 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
       ]);
 
       // Check for errors
-      if (!calculatorResponse.ok || !utilitiesResponse.ok || !incentivesResponse.ok) {
-        throw new Error('Failed to fetch data from the server');
+      if (!calculatorResponse.ok) {
+        const errorText = await calculatorResponse.text();
+        console.error(`Calculator API error: ${calculatorResponse.status}`, errorText);
+        throw new Error(`Calculator API error: ${calculatorResponse.status}`);
+      }
+
+      if (!utilitiesResponse.ok) {
+        const errorText = await utilitiesResponse.text();
+        console.error(`Utilities API error: ${utilitiesResponse.status}`, errorText);
+        throw new Error(`Utilities API error: ${utilitiesResponse.status}`);
+      }
+
+      if (!incentivesResponse.ok) {
+        const errorText = await incentivesResponse.text();
+        console.error(`Incentives API error: ${incentivesResponse.status}`, errorText);
+        throw new Error(`Incentives API error: ${incentivesResponse.status}`);
       }
 
       // Parse responses
@@ -47,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
     } catch (error) {
       console.error('Error:', error);
-      errorDiv.textContent = 'An error occurred while fetching the data. Please try again.';
+      errorDiv.textContent = `An error occurred: ${error.message || 'Failed to fetch data from the server'}. Please try again or contact support if the problem persists.`;
       errorDiv.style.display = 'block';
     } finally {
       loadingDiv.style.display = 'none';
