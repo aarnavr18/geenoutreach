@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: fair-lawn-energy-calculator
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: API_KEY
+        sync: false
+      - key: API_BASE_URL
+        value: https://api.rewiringamerica.org
+      - key: PORT
+        value: 10000 
