@@ -11,10 +11,16 @@ const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 const BASE_URL = process.env.API_BASE_URL || 'https://api.rewiringamerica.org';
 
+// Log configuration for debugging
+console.log('Starting server with configuration:');
+console.log(`- PORT: ${PORT}`);
+console.log(`- API_BASE_URL: ${BASE_URL}`);
+console.log(`- API_KEY set: ${API_KEY ? 'Yes' : 'No'}`);
+
 // Configure axios with defaults
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000, // 30 second timeout
+  timeout: 60000, // Increased to 60 seconds to prevent timeouts on Render
   headers: {
     'Authorization': `Bearer ${API_KEY}`
   }
@@ -281,6 +287,7 @@ app.post('/api/events', express.json(), async (req, res) => {
 
 // Simple test endpoint
 app.get('/api/test', (req, res) => {
+  console.log('Test endpoint called');
   res.json({
     message: 'API server is running',
     timestamp: new Date().toISOString()
@@ -288,7 +295,12 @@ app.get('/api/test', (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
   console.log(`API Base URL: ${BASE_URL}`);
-}); 
+});
+
+// Add server timeout to prevent 502 errors on Render
+server.timeout = 120000; // 2 minutes
+server.keepAliveTimeout = 65000; // Slightly higher than 60 seconds (Render's timeout)
+server.headersTimeout = 66000; // Slightly higher than keepAliveTimeout 

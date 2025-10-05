@@ -4,10 +4,13 @@ services:
     env: node
     buildCommand: npm install
     startCommand: node server.js
+    healthCheckPath: /api/test
+    healthCheckTimeout: 60
+    autoDeploy: true
     envVars:
       - key: API_KEY
         sync: false
       - key: API_BASE_URL
         value: https://api.rewiringamerica.org
       - key: PORT
-        value: 10000 
+        value: 3000 
