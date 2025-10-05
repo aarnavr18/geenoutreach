@@ -754,6 +754,140 @@ footer {
     font-size: 1.5em;
 }
 
+/* Environmental Impact Styles */
+.environmental-impact {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 2px solid #4caf50;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.2);
+}
+
+.environmental-impact h3 {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.impact-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.impact-card.co2-reduction {
+    border-color: #ff5722;
+}
+
+.impact-card.energy-savings {
+    border-color: #ff9800;
+}
+
+.impact-card.trees-equivalent {
+    border-color: #4caf50;
+}
+
+.impact-card.car-miles {
+    border-color: #2196f3;
+}
+
+.impact-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.impact-value {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 5px;
+}
+
+.impact-unit {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.impact-label {
+    font-size: 1em;
+    color: #1b5e20;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Individual Incentive Environmental Impact */
+.incentive-environmental {
+    background: rgba(76, 175, 80, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 3px solid #4caf50;
+}
+
+.env-impact-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.env-icon {
+    font-size: 1.2em;
+}
+
+.env-text {
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+/* Responsive Design for Environmental Impact */
+@media (max-width: 768px) {
+    .impact-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .impact-card {
+        padding: 15px;
+    }
+    
+    .impact-icon {
+        font-size: 2em;
+    }
+    
+    .impact-value {
+        font-size: 1.8em;
+    }
+    
+    .environmental-impact h3 {
+        font-size: 1.5em;
+    }
+}
+
 /* Sustainability CTA */
 .sustainability-cta {
   background-color: #e8f5e9;

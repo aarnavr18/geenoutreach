@@ -126,16 +126,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (incentivesData.incentives && incentivesData.incentives.length > 0) {
       console.log(`Found ${incentivesData.incentives.length} incentives to display`);
       
-      // Calculate total potential savings
+      // Calculate total potential savings and environmental impact
       let totalSavings = 0;
+      let totalCarbonReduction = 0;
+      let totalEnergySavings = 0;
+      
       incentivesData.incentives.forEach(incentive => {
         console.log('Processing incentive:', incentive);
         if (incentive.amount && incentive.amount.representative) {
           totalSavings += incentive.amount.representative;
         }
+        
+        // Calculate environmental impact based on incentive type
+        const environmentalImpact = calculateEnvironmentalImpact(incentive);
+        totalCarbonReduction += environmentalImpact.co2Reduction;
+        totalEnergySavings += environmentalImpact.energySavings;
       });
 
-      // Display total savings if available
+      // Display total savings and environmental impact
       if (totalSavings > 0) {
         const savingsDiv = document.createElement('div');
         savingsDiv.className = 'total-savings';
@@ -143,6 +151,42 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3>Total Potential Savings: $${totalSavings.toLocaleString()}</h3>
         `;
         incentivesDiv.appendChild(savingsDiv);
+      }
+
+      // Display environmental impact section
+      if (totalCarbonReduction > 0 || totalEnergySavings > 0) {
+        const environmentalDiv = document.createElement('div');
+        environmentalDiv.className = 'environmental-impact';
+        environmentalDiv.innerHTML = `
+          <h3>🌱 Environmental Impact</h3>
+          <div class="impact-grid">
+            <div class="impact-card co2-reduction">
+              <div class="impact-icon">🌍</div>
+              <div class="impact-value">${Math.round(totalCarbonReduction)}</div>
+              <div class="impact-unit">lbs CO₂/year</div>
+              <div class="impact-label">Carbon Reduction</div>
+            </div>
+            <div class="impact-card energy-savings">
+              <div class="impact-icon">⚡</div>
+              <div class="impact-value">${Math.round(totalEnergySavings)}</div>
+              <div class="impact-unit">kWh/year</div>
+              <div class="impact-label">Energy Savings</div>
+            </div>
+            <div class="impact-card trees-equivalent">
+              <div class="impact-icon">🌳</div>
+              <div class="impact-value">${Math.round(totalCarbonReduction / 48)}</div>
+              <div class="impact-unit">trees</div>
+              <div class="impact-label">Equivalent Trees Planted</div>
+            </div>
+            <div class="impact-card car-miles">
+              <div class="impact-icon">🚗</div>
+              <div class="impact-value">${Math.round(totalCarbonReduction / 0.411)}</div>
+              <div class="impact-unit">miles</div>
+              <div class="impact-label">Car Miles Offset</div>
+            </div>
+          </div>
+        `;
+        incentivesDiv.appendChild(environmentalDiv);
       }
 
       // Create incentives grid
@@ -157,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = formatAmount(incentive.amount);
         console.log('Formatted amount:', amount);
         
+        const environmentalImpact = calculateEnvironmentalImpact(incentive);
+        
         card.innerHTML = `
           <div class="incentive-header">
             <h4>${incentive.program || 'Program Name Not Available'}</h4>
@@ -169,6 +215,18 @@ document.addEventListener('DOMContentLoaded', () => {
             ${incentive.start_date ? `<p><strong>Valid:</strong> ${incentive.start_date} - ${incentive.end_date || 'Ongoing'}</p>` : ''}
             ${incentive.authority ? `<p><strong>Authority:</strong> ${formatAuthority(incentive.authority)}</p>` : ''}
           </div>
+          ${environmentalImpact.co2Reduction > 0 ? `
+          <div class="incentive-environmental">
+            <div class="env-impact-mini">
+              <span class="env-icon">🌍</span>
+              <span class="env-text">${Math.round(environmentalImpact.co2Reduction)} lbs CO₂/year</span>
+            </div>
+            <div class="env-impact-mini">
+              <span class="env-icon">⚡</span>
+              <span class="env-text">${Math.round(environmentalImpact.energySavings)} kWh/year</span>
+            </div>
+          </div>
+          ` : ''}
           <div class="incentive-links">
             ${incentive.program_url ? `<a href="${incentive.program_url}" target="_blank" class="btn-primary">Program Details</a>` : ''}
             ${incentive.more_info_url ? `<a href="${incentive.more_info_url}" target="_blank" class="btn-secondary">Learn More</a>` : ''}
@@ -264,5 +322,80 @@ document.addEventListener('DOMContentLoaded', () => {
     return authority.split(/[-_]/)
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
+  }
+
+  // Calculate environmental impact based on incentive type and items
+  function calculateEnvironmentalImpact(incentive) {
+    let co2Reduction = 0;
+    let energySavings = 0;
+    
+    if (!incentive.items || !Array.isArray(incentive.items)) {
+      return { co2Reduction: 0, energySavings: 0 };
+    }
+    
+    // Environmental impact multipliers based on common energy efficiency measures
+    const impactMultipliers = {
+      // HVAC and Heat Pumps
+      'heat_pump': { co2: 1200, energy: 2000 },
+      'air_source_heat_pump': { co2: 1200, energy: 2000 },
+      'ground_source_heat_pump': { co2: 1500, energy: 2500 },
+      'central_air_conditioning': { co2: 800, energy: 1500 },
+      'furnace': { co2: 1000, energy: 1800 },
+      'boiler': { co2: 900, energy: 1600 },
+      
+      // Solar and Storage
+      'solar_pv': { co2: 2000, energy: 3000 },
+      'battery_storage': { co2: 300, energy: 500 },
+      'solar_water_heater': { co2: 600, energy: 1000 },
+      
+      // Insulation and Weatherization
+      'insulation': { co2: 400, energy: 800 },
+      'air_sealing': { co2: 300, energy: 600 },
+      'windows': { co2: 200, energy: 400 },
+      'doors': { co2: 100, energy: 200 },
+      'roof': { co2: 500, energy: 1000 },
+      
+      // Water Heating
+      'water_heater': { co2: 400, energy: 800 },
+      'tankless_water_heater': { co2: 300, energy: 600 },
+      
+      // Lighting and Appliances
+      'led_lighting': { co2: 50, energy: 100 },
+      'appliances': { co2: 200, energy: 400 },
+      'refrigerator': { co2: 150, energy: 300 },
+      'washer_dryer': { co2: 100, energy: 200 },
+      
+      // Electric Vehicles
+      'electric_vehicle': { co2: 3000, energy: 5000 },
+      'ev_charger': { co2: 200, energy: 300 },
+      
+      // Electrical
+      'electrical_panel': { co2: 100, energy: 200 },
+      'smart_thermostat': { co2: 200, energy: 400 },
+      
+      // Default for unknown items
+      'default': { co2: 100, energy: 200 }
+    };
+    
+    // Calculate impact for each item
+    incentive.items.forEach(item => {
+      const itemKey = item.toLowerCase().replace(/[^a-z_]/g, '_');
+      const multiplier = impactMultipliers[itemKey] || impactMultipliers.default;
+      
+      // Scale based on incentive amount (if available)
+      let scaleFactor = 1;
+      if (incentive.amount && incentive.amount.representative) {
+        // Scale factor based on incentive value (higher value = more significant impact)
+        scaleFactor = Math.min(incentive.amount.representative / 1000, 3); // Cap at 3x
+      }
+      
+      co2Reduction += multiplier.co2 * scaleFactor;
+      energySavings += multiplier.energy * scaleFactor;
+    });
+    
+    return {
+      co2Reduction: Math.round(co2Reduction),
+      energySavings: Math.round(energySavings)
+    };
   }
 }); 
